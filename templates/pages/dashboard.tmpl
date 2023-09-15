@@ -1,0 +1,15 @@
+{{ extends "/layout.tmpl" }}
+
+{{ block page() }}
+  {{ if .err != nil }}
+    <p>Error loading todos</p>
+    <p>{{ .err }}</p>
+  {{ else }}
+    {{ dump: . }}
+    <ul>
+      {{ range .todos }}
+        <li class="p-4">{{ .Name }}</li>
+      {{ end }}
+    </ul>
+  {{ end }}
+{{ end }}

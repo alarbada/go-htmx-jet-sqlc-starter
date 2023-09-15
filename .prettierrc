@@ -1,0 +1,14 @@
+{
+	"plugins": ["prettier-plugin-go-template", "prettier-plugin-tailwindcss"],
+	"overrides": [
+		{
+			"files": ["**/*.tmpl"],
+			"options": {
+				"parser": "go-template"
+			}
+		}
+	],
+	"useTabs": false,
+	"tabWidth": 2,
+	"semi": false
+}
