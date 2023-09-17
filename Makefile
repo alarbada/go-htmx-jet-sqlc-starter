@@ -2,7 +2,7 @@ run:
 	air
 
 css:
-	bunx tailwindcss -i ./templates/main.css -o ./public/main.css --watch
+	bunx tailwindcss -i ./views/main.css -o ./public/main.css --watch
 
 sql:
 	sqlc generate
@@ -12,5 +12,5 @@ db:
 
 fmt:
 	go fmt ./...
-	bunx prettier --write  ./templates/*.tmpl ./templates/**/*.tmpl
+	bunx prettier --write  ./views/*.tmpl ./views/**/*.tmpl
 

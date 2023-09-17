@@ -55,7 +55,7 @@ func StartServer() {
 		panic(err)
 	}
 
-	t := views.NewTemplates(config.IsProduction)
+	t := views.New(config.IsProduction)
 
 	handlers := Handlers{conn, t}
 

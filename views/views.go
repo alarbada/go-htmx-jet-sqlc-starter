@@ -10,7 +10,7 @@ type Views struct {
 	set *jet.Set
 }
 
-func NewTemplates(isProduction bool) Views {
+func New(isProduction bool) Views {
 	var set *jet.Set
 	if isProduction {
 		set = jet.NewSet(jet.NewOSFileSystemLoader("./views"))
