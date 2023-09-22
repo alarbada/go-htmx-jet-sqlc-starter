@@ -9,10 +9,14 @@ import (
 	"github.com/joho/godotenv"
 )
 
+type DbConfig struct {
+	User, Password, Host, Port, Name string
+}
+
 type AppConfig struct {
 	APP_PORT     string
 	IsProduction bool
-	SQliteFile   string
+	DbConfig     DbConfig
 }
 
 func NewAppConfig() AppConfig {
@@ -20,10 +24,18 @@ func NewAppConfig() AppConfig {
 		panic(err)
 	}
 
+	dbConfig := DbConfig{
+		User:     getEnvOr("DB_USER", "postgres"),
+		Password: getEnvOr("DB_PASSWORD", "postgres"),
+		Host:     getEnvOr("DB_HOST", "localhost"),
+		Port:     getEnvOr("DB_PORT", "5432"),
+		Name:     getEnvOr("DB_NAME", "postgres"),
+	}
+
 	config := AppConfig{
 		APP_PORT:     getEnvOr("APP_PORT", ":8080"),
 		IsProduction: getEnvOr("APP_ENV", "development") == "production",
-		SQliteFile:   getRequiredEnv("SQLITE_FILE"),
+		DbConfig:     dbConfig,
 	}
 
 	return config
@@ -50,7 +62,13 @@ func StartServer() {
 
 	r := gin.Default()
 
-	err := db.Connect(config.SQliteFile)
+	err := db.Connect(
+		config.DbConfig.User,
+		config.DbConfig.Password,
+		config.DbConfig.Host,
+		config.DbConfig.Port,
+		config.DbConfig.Name,
+	)
 	if err != nil {
 		panic(err)
 	}
