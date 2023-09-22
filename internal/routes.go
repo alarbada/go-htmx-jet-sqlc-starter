@@ -16,12 +16,5 @@ func setupHandlers(r *gin.Engine) {
 			"err":     err,
 		})
 	})
-
-	r.GET("/", func(c *gin.Context) {
-		views.Render(c, "/pages/dashboard.tmpl", gin.H{
-			"message": "dashboard",
-		})
-		c.HTML(200, "/pages/login.tmpl", nil)
-	})
 }
 
