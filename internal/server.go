@@ -50,19 +50,16 @@ func StartServer() {
 
 	r := gin.Default()
 
-	conn, err := db.Connect(config.SQliteFile)
+	err := db.Connect(config.SQliteFile)
 	if err != nil {
 		panic(err)
 	}
 
-	t := views.New(config.IsProduction)
-
-	handlers := Handlers{conn, t}
+	views.Setup(config.IsProduction)
 
 	r.Static("/public", "./public")
 
-	r.GET("/login", handlers.Login)
-	r.GET("/", handlers.Dashboard)
+	setupHandlers(r)
 
 	r.Run(":" + config.APP_PORT)
 }

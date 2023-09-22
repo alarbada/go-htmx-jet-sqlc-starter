@@ -6,15 +6,14 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-type Connection struct {
-	*Queries
-}
+var Conn *Queries
 
-func Connect(file string) (*Connection, error) {
+func Connect(file string) error {
 	db, err := sql.Open("sqlite3", file)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return &Connection{New(db)}, nil
+	Conn = New(db)
+	return nil
 }
