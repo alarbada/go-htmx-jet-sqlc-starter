@@ -10,7 +10,7 @@ import (
 )
 
 type DbConfig struct {
-	User, Password, Host, Port, Name string
+	User, Password, Host, Port, Name, SslMode string
 }
 
 type AppConfig struct {
@@ -30,6 +30,7 @@ func NewAppConfig() AppConfig {
 		Host:     getEnvOr("DB_HOST", "localhost"),
 		Port:     getEnvOr("DB_PORT", "5432"),
 		Name:     getEnvOr("DB_NAME", "postgres"),
+		SslMode:  getEnvOr("DB_SSL", "disable"),
 	}
 
 	config := AppConfig{
@@ -68,6 +69,7 @@ func StartServer() {
 		config.DbConfig.Host,
 		config.DbConfig.Port,
 		config.DbConfig.Name,
+		config.DbConfig.SslMode,
 	)
 	if err != nil {
 		panic(err)

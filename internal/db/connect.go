@@ -9,8 +9,12 @@ import (
 
 var Conn *Queries
 
-func Connect(user, password, host, port, name string) error {
-	db, err := sql.Open("postgres", fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=disable", user, password, host, port, name))
+func Connect(user, password, host, port, name, sslmode string) error {
+	connStr := fmt.Sprintf(
+		"user=%s password=%s host=%s port=%s dbname=%s sslmode=%s",
+		user, password, host, port, name, sslmode)
+
+	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		return err
 	}
